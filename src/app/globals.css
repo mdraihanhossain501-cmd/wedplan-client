@@ -128,3 +128,32 @@
     @apply font-sans;
   }
 }
+
+/* WedPlan theme */
+:root {
+  --background: #fbf7f2;
+  --foreground: #2b2326;
+  --card: #ffffff;
+  --card-foreground: #2b2326;
+  --popover: #ffffff;
+  --popover-foreground: #2b2326;
+  --primary: #9e3f55;
+  --primary-foreground: #ffffff;
+  --secondary: #f6e6e9;
+  --secondary-foreground: #2b2326;
+  --muted: #f3ece6;
+  --muted-foreground: #5a4e52;
+  --accent: #e6eee9;
+  --accent-foreground: #2b2326;
+  --border: #e8ded6;
+  --input: #cdbfb5;
+  --ring: #9e3f55;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}

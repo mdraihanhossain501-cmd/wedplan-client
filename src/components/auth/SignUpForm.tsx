@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import GoogleButton from "@/components/auth/GoogleButton";
 
 const passwordRule = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
@@ -26,6 +27,12 @@ export default function SignUpForm() {
   const [role, setRole] = useState<"customer" | "vendor">("customer");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+    const rawCallback = searchParams.get("callbackUrl");
+  const googleCallback =
+    rawCallback && rawCallback.startsWith("/") && !rawCallback.startsWith("//")
+      ? rawCallback
+      : "/dashboard";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -156,6 +163,13 @@ export default function SignUpForm() {
           {loading ? "Creating account..." : "Sign Up"}
         </Button>
       </form>
+
+            <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+        <span className="h-px flex-1 bg-border" />
+        OR
+        <span className="h-px flex-1 bg-border" />
+      </div>
+      <GoogleButton callbackURL={googleCallback} />
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
         Already have an account?{" "}

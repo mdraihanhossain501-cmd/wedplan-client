@@ -10,6 +10,7 @@ import { getDashboardPath } from "@/lib/roles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import GoogleButton from "@/components/auth/GoogleButton";
 
 export default function SignInForm() {
   const router = useRouter();
@@ -89,6 +90,13 @@ export default function SignInForm() {
           {loading ? "Signing in..." : "Sign In"}
         </Button>
       </form>
+
+            <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+        <span className="h-px flex-1 bg-border" />
+        OR
+        <span className="h-px flex-1 bg-border" />
+      </div>
+      <GoogleButton />
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
         New to WedPlan?{" "}

@@ -28,11 +28,6 @@ export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-    const rawCallback = searchParams.get("callbackUrl");
-  const googleCallback =
-    rawCallback && rawCallback.startsWith("/") && !rawCallback.startsWith("//")
-      ? rawCallback
-      : "/dashboard";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -169,7 +164,7 @@ export default function SignUpForm() {
         OR
         <span className="h-px flex-1 bg-border" />
       </div>
-      <GoogleButton callbackURL={googleCallback} />
+      <GoogleButton />
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
         Already have an account?{" "}

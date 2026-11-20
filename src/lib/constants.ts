@@ -9,3 +9,4 @@ export const CATEGORIES = [
 
 export const FREE_ACTIVE_LIMIT = 3;
 export const MAX_IMAGES = 5;
+export const PREMIUM_PRICE_USD = 10;

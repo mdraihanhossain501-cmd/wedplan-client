@@ -27,3 +27,34 @@ export type ServicesResponse = {
   page: number;
   totalPages: number;
 };
+
+export type BookingStatus = "pending" | "accepted" | "rejected" | "cancelled";
+
+export type BookingParty = {
+  name?: string;
+  email?: string;
+  image?: string | null;
+  businessName?: string;
+};
+
+export type Booking = {
+  _id: string;
+  serviceId: string;
+  vendorId: string;
+  customerId: string;
+  eventDate: string;
+  eventLocation: string;
+  message: string;
+  status: BookingStatus;
+  createdAt: string;
+  service?: {
+    _id?: string;
+    serviceName?: string;
+    category?: string;
+    price?: number;
+    location?: string;
+    image?: string;
+  };
+  vendor?: BookingParty;
+  customer?: BookingParty;
+};

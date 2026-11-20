@@ -10,3 +10,14 @@ export function formatDate(value: string | Date) {
     timeZone: "UTC",
   });
 }
+
+export function formatMoney(amount: number, currency = "usd") {
+  try {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency.toUpperCase(),
+    }).format(amount);
+  } catch {
+    return `${currency.toUpperCase()} ${amount}`;
+  }
+}

@@ -58,3 +58,34 @@ export type Booking = {
   vendor?: BookingParty;
   customer?: BookingParty;
 };
+
+export type AdminUser = {
+  _id: string;
+  name: string;
+  email: string;
+  image?: string | null;
+  role: "admin" | "vendor" | "customer";
+  isBlocked?: boolean;
+  businessName?: string;
+  subscriptionPlan?: string;
+  subscriptionExpiresAt?: string | null;
+  createdAt: string;
+};
+
+export type Transaction = {
+  _id: string;
+  vendorId: string;
+  plan: string;
+  amount: number;
+  currency: string;
+  stripeSessionId?: string;
+  stripeSubscriptionId?: string;
+  status: string;
+  createdAt: string;
+  vendor?: {
+    name?: string;
+    email?: string;
+    image?: string | null;
+    businessName?: string;
+  };
+};

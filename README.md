@@ -75,6 +75,7 @@ The app runs at http://localhost:3000.
 | `npm run build` | Create a production build |
 | `npm start` | Run the production build |
 | `npm run lint` | Run ESLint |
+| `npm run seed` | Add demo vendors and approved services |
 
 ## Environment variables
 

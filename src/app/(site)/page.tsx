@@ -5,6 +5,7 @@ import FeaturedServices from "@/components/home/FeaturedServices";
 import WhyChoose from "@/components/home/WhyChoose";
 import HowItWorks from "@/components/home/HowItWorks";
 import PlanningTimeline from "@/components/home/PlanningTimeline";
+import FaqSection from "@/components/home/FaqSection";
 import CallToAction from "@/components/home/CallToAction";
 
 export const dynamic = "force-dynamic";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <WhyChoose />
       <HowItWorks />
       <PlanningTimeline />
+      <FaqSection />
       <CallToAction />
     </>
   );

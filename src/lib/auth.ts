@@ -4,10 +4,14 @@ import { APIError } from "better-auth/api";
 import { jwt } from "better-auth/plugins";
 import { MongoClient } from "mongodb";
 
-const globalForMongo = globalThis as unknown as { mongoClient?: MongoClient };
+// One shared connection for the whole runtime (development and production).
+const globalForMongo = globalThis as unknown as {
+  wedplanMongoClient?: MongoClient;
+};
 const client =
-  globalForMongo.mongoClient ?? new MongoClient(process.env.MONGODB_URI as string);
-if (process.env.NODE_ENV !== "production") globalForMongo.mongoClient = client;
+  globalForMongo.wedplanMongoClient ??
+  new MongoClient(process.env.MONGODB_URI as string, { maxPoolSize: 5 });
+globalForMongo.wedplanMongoClient = client;
 
 const db = client.db(process.env.DB_NAME || "wedplan");
 
@@ -19,7 +23,7 @@ const PROTECTED_FIELDS = [
 ];
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db, { client }),
+  database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 6,

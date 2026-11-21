@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import SignInForm from "@/components/auth/SignInForm";
+import DemoAccounts from "@/components/auth/DemoAccounts";
 
 export const metadata: Metadata = { title: "Sign In" };
 
@@ -10,6 +11,7 @@ export default function SignInPage() {
       <Suspense fallback={null}>
         <SignInForm />
       </Suspense>
+      <DemoAccounts />
     </section>
   );
 }

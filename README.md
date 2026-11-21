@@ -90,6 +90,8 @@ Create `.env.local` with these names. Never commit real values.
 | `IMGBB_API_KEY` | ImgBB API key for image uploads |
 | `GOOGLE_CLIENT_ID` | Google OAuth client ID |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
+| `NEXT_PUBLIC_DEMO_CUSTOMER_PASSWORD` | Optional. Password of the demo customer account (shows the Demo Customer button) |
+| `NEXT_PUBLIC_DEMO_VENDOR_PASSWORD` | Optional. Password of the demo vendor account (shows the Demo Vendor button) |
 
 ## Testing Stripe payments
 

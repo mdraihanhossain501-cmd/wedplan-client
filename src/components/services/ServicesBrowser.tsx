@@ -15,18 +15,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ServiceCard from "@/components/services/ServiceCard";
+import { useDebounced } from "@/hooks/useDebounced";
 import { apiFetch } from "@/lib/api";
 import { CATEGORIES } from "@/lib/constants";
 import type { ServicesResponse } from "@/types";
-
-function useDebounced(value: string, delay = 400) {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-  return debounced;
-}
 
 export default function ServicesBrowser() {
   const searchParams = useSearchParams();
@@ -36,6 +28,7 @@ export default function ServicesBrowser() {
   const [category, setCategory] = useState(searchParams.get("category") || "all");
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1);
+  const [retry, setRetry] = useState(0);
 
   const [data, setData] = useState<ServicesResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,7 +63,12 @@ export default function ServicesBrowser() {
       });
 
     return () => controller.abort();
-  }, [debouncedSearch, debouncedLocation, category, sort, page]);
+  }, [debouncedSearch, debouncedLocation, category, sort, page, retry]);
+
+  function changePage(next: number) {
+    setPage(next);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   function resetFilters() {
     setSearch("");
@@ -163,7 +161,7 @@ export default function ServicesBrowser() {
         <div className="rounded-2xl border border-destructive/30 bg-card p-10 text-center">
           <p className="font-semibold">Could not load services</p>
           <p className="mt-1 text-sm text-muted-foreground">{error}</p>
-          <Button className="mt-4" onClick={() => setPage((value) => value)}>
+          <Button className="mt-4" onClick={() => setRetry((value) => value + 1)}>
             Try again
           </Button>
         </div>
@@ -183,7 +181,7 @@ export default function ServicesBrowser() {
               <Button
                 variant="outline"
                 disabled={page <= 1}
-                onClick={() => setPage((value) => value - 1)}
+                onClick={() => changePage(page - 1)}
               >
                 Previous
               </Button>
@@ -193,7 +191,7 @@ export default function ServicesBrowser() {
               <Button
                 variant="outline"
                 disabled={page >= data.totalPages}
-                onClick={() => setPage((value) => value + 1)}
+                onClick={() => changePage(page + 1)}
               >
                 Next
               </Button>

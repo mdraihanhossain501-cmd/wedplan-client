@@ -17,6 +17,13 @@ export const metadata: Metadata = {
   },
   description:
     "Discover wedding services, send booking requests and manage your wedding plans with WedPlan.",
+  openGraph: {
+    title: "WedPlan - Wedding Planning Platform",
+    description:
+      "Find and book trusted wedding photographers, venues, decorators, caterers, stylists and fashion across Bangladesh.",
+    siteName: "WedPlan",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

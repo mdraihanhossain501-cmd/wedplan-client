@@ -45,7 +45,7 @@ export default function Footer() {
             <p className="mb-3 font-semibold">Contact</p>
             <ul className="space-y-2 text-sm text-[#d6c9c9]">
               <li>hello@wedplan.example</li>
-              <li>+880 1XXX-XXXXXX</li>
+              <li>+880 1700-000000</li>
               <li>Dhaka, Bangladesh</li>
             </ul>
           </div>

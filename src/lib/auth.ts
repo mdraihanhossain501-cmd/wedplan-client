@@ -10,7 +10,13 @@ const globalForMongo = globalThis as unknown as {
 };
 const client =
   globalForMongo.wedplanMongoClient ??
-  new MongoClient(process.env.MONGODB_URI as string, { maxPoolSize: 5 });
+    new MongoClient(process.env.MONGODB_URI as string, {
+    maxPoolSize: 5,
+    minPoolSize: 0,
+    maxIdleTimeMS: 5000, // drop idle connections before the serverless function freezes
+    serverSelectionTimeoutMS: 8000,
+    connectTimeoutMS: 8000,
+  });
 globalForMongo.wedplanMongoClient = client;
 
 const db = client.db(process.env.DB_NAME || "wedplan");

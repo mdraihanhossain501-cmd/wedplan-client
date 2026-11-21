@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { APIError } from "better-auth/api";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { jwt } from "better-auth/plugins";
 import { MongoClient } from "mongodb";
 
@@ -66,6 +66,20 @@ export const auth = betterAuth({
         },
       },
     },
+  },
+  hooks: {
+    before: createAuthMiddleware(async (ctx) => {
+      // Server-side password rule, so it cannot be bypassed by calling the API directly.
+      if (ctx.path === "/sign-up/email") {
+        const password = String(ctx.body?.password ?? "");
+        if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
+          throw new APIError("BAD_REQUEST", {
+            message:
+              "Password needs at least 6 characters, one uppercase and one lowercase letter",
+          });
+        }
+      }
+    }),
   },
   plugins: [
     jwt({

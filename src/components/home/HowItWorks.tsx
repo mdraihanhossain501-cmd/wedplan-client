@@ -1,5 +1,4 @@
 import Reveal from "@/components/home/Reveal";
-import SectionHeading from "@/components/home/SectionHeading";
 
 const steps = [
   {

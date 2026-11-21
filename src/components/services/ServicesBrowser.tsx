@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect -- loading state is reset when the request changes */
 "use client";
 
 import { useEffect, useState } from "react";

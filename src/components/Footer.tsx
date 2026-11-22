@@ -1,11 +1,8 @@
-import Link from "next/link";
+"use client";
 
-const exploreLinks = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Browse Services" },
-  { href: "/sign-in", label: "Sign In" },
-  { href: "/sign-up", label: "Sign Up" },
-];
+import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { getDashboardPath } from "@/lib/roles";
 
 const socialLinks = [
   { href: "https://facebook.com", label: "Facebook" },
@@ -14,6 +11,22 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { data: session } = authClient.useSession();
+  const role = (session?.user as { role?: string } | undefined)?.role;
+
+  const exploreLinks = session
+    ? [
+        { href: "/", label: "Home" },
+        { href: "/services", label: "Browse Services" },
+        { href: getDashboardPath(role), label: "Dashboard" },
+      ]
+    : [
+        { href: "/", label: "Home" },
+        { href: "/services", label: "Browse Services" },
+        { href: "/sign-in", label: "Sign In" },
+        { href: "/sign-up", label: "Sign Up" },
+      ];
+
   return (
     <footer className="bg-[#2b2326] text-[#f3eae4]">
       <div className="mx-auto max-w-6xl px-6 py-14">
@@ -32,7 +45,7 @@ export default function Footer() {
             <p className="mb-3 font-semibold">Explore</p>
             <ul className="space-y-2 text-sm text-[#d6c9c9]">
               {exploreLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link href={link.href} className="hover:text-white">
                     {link.label}
                   </Link>
@@ -64,7 +77,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-[#4a3f43] pt-6 text-sm text-[#d6c9c9]">
+        <div className="mt-10 border-t border-[#4a3f43] pt-6 text-center text-sm text-[#d6c9c9]">
           &copy; {new Date().getFullYear()} WedPlan. All rights reserved.
         </div>
       </div>
